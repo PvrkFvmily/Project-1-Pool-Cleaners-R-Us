@@ -11,7 +11,7 @@ Your job is to skillfully hit a wall so that you can clean the whole pool.
 
 ---
 ### Wireframe
-![Project 1 Pitch](https://user-images.githubusercontent.com/117226930/204963306-af6f0bc1-1a6a-4bfa-8e2f-193ef50ad503.JPG)
+![Project 1 Pitch](https://user-images.githubusercontent.com/117226930/204963527-3ad9612b-9270-4ccc-91ee-14b04f9fd34b.JPG)
 
 ---
 ### MVP

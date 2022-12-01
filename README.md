@@ -19,7 +19,7 @@ Your job is to skillfully hit a wall so that you can clean the whole pool.
 - Render stage with Super Scrub Block
 - Move with WASD keys
 - Stop SSB when it hits a wall
-- Have a clean pool floor where SSB has been
+- When SSB goes over the grid changes color
 - Win screen or next stage screen when pool is clean
 
 ---

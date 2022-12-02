@@ -9,40 +9,56 @@ console.log('linked')
 
 // Create canvas 2d
 
-// Create Class for the map?
-// pick x coordinate that is divisble by 50px(box size)
-// render size 50px X 50px
+// Create Class for Obstacle
+// pick x y coordinate to create a rectangle
+// render size as needed
+
+// Create Class for Floor
+// pick x coordinate that is divisible by 50px
+// render size 50px x 50px
+// TBD how I should put floors
+
 // function to render next stage when win condition is met
+// Render -- first stage -- 
+
+// -- first stage -- 
+// if every floor is clean disable input and go-- second stage --
 
 // Render stage with Super Scrub Block
+// always bottom left
 
 // Create Character Class
 // Generate hit box (same size as SSB)
 // Generate color hit box (smaller size than SSB)
+// ++ is moving = true/false
 // Render Character
 
-// --- GAME LOOP ---
+// --- GAME LOOP --- (THINGS TO CHECK CONSTANTLY)
 
 // set interval
 // set hit -- wall detection -- callback function
-// set color blue the grids where SSB has collided with
-// colored floor dection ignore when it is already clean
+// set color blue -- clean floor -- the grids where SSB has collided with
 
 
 //  --- MOVEMENT ---
 
 // Move with WASD keys 
-// function with movement 
-// ONLY MOVE ONE DIRECTION AT A TIME (disable movement when one movement is keyed)
-// can move when you hit a wall (hit dectection)
+// -- movement --
+// ONLY MOVE ONE DIRECTION AT A TIME (use is moving variable)
+// can move when you hit a wall -- wall dectection --
 
 // Stop when SSB hits a wall --
 // collision detect function
 
 // --- CALLBACK FUNCTIONS ---
 // -- wall detection --
-// block player from going the direction that is blocked
+// ++ is moving = true/false
 // disable key stroke on the side that is being collided
+// once it hits a wall trun is moving to false
+// -- clean floor --
+// ++ is clean = true/false
+// change the floor color to blue if the floor is dirty 
+// colored floor dection ignore when it is already clean
 
 
 // Win screen or next stage screen when pool is clean
@@ -50,3 +66,4 @@ console.log('linked')
 // --- QUESTIONS ---
 // do i need child class?
 // for game loop interval time what is a good refresh interval time
+// can i have a class that holds all the map information?

@@ -1,5 +1,6 @@
 console.log('linked')
 
+// --- GAME PLAN ---
 // --- TITLE SCREEN ---
 
 // Render game screen with title, instructions, and play button

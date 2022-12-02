@@ -3,9 +3,59 @@ const start = document.getElementById('start')
 const quit = document.querySelector('#quit')
 const titleScreen = document.getElementById('titleScreen')
 const gameGrid = document.getElementById('gameGrid')
+const main = document.querySelector('main')
+const canvas = document.querySelector('canvas')
 
+// CANVAS
+canvas.setAttribute('height', getComputedStyle(main)['height'])
+canvas.setAttribute('width', getComputedStyle(main)['width'])
+const ctx = canvas.getContext('2d')
+
+// CLASS OBSTACLE CREATION
+class Obstacle {
+    constructor(x, y, width, height, color) {
+        this.x = x * 50
+        this.y = y * 50
+        this.width = width
+        this.height = height
+        this.color = color
+    }
+    render() {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.strokeStyle = this.color
+    }
+}
+
+const wall = new Obstacle(6, 5, 50, 50, "green")
+wall.render()
+
+// TRYING TO MAKE MAPS WITH 0 AND 1
+// const map = () => {
+//     if(true) {
+//     } else {
+//         class Floor {
+
+//         }
+//     }
+// }
+
+// PLAYING AROUND CODE
+// ctx.fillStyle = 'green'
+// ctx.fillRect(0, 0, 50, 50)
+// ctx.strokeRect(0, 0, 50, 50)
+// ctx.strokeStyle = "black"
+
+// ctx.fillStyle = 'green'
+// ctx.fillRect(50, 0, 50, 50)
+// ctx.strokeRect(50, 0, 50, 50)
+// ctx.strokeStyle = "black"
+
+
+// PLAY && QUIT BUTTON FUNCTION
 const displayGame = () => {
-    console.log('heyheey')
+    console.log('')
     titleScreen.style.display = "none";
     gameGrid.style.display = "grid";
 }
@@ -17,6 +67,7 @@ const displayTitle = () => {
 
 start.addEventListener('click', displayGame)
 quit.addEventListener('click', displayTitle)
+
 
 // --- GAME PLAN ---
 // --- TITLE SCREEN ---

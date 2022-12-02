@@ -1,4 +1,22 @@
 console.log('linked')
+const start = document.getElementById('start')
+const quit = document.querySelector('#quit')
+const titleScreen = document.getElementById('titleScreen')
+const gameGrid = document.getElementById('gameGrid')
+
+const displayGame = () => {
+    console.log('heyheey')
+    titleScreen.style.display = "none";
+    gameGrid.style.display = "grid";
+}
+
+const displayTitle = () => {
+    gameGrid.style.display = "none";
+    titleScreen.style.display = "flex";
+}
+
+start.addEventListener('click', displayGame)
+quit.addEventListener('click', displayTitle)
 
 // --- GAME PLAN ---
 // --- TITLE SCREEN ---

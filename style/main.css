@@ -5,43 +5,42 @@ body {
 }
 
 #gameBoard {
+    position: relative;
     background-color: aqua;
     height: 600px;
     width: 900px;
 }
 
 #titleScreen {
+    /* display: none(flex); while working on gameGrid */
+    display: flex;
     height: 600px;
     width: 900px;
-    /* display: none(flex); while working on gameGrid */
-    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: hotpink;
 }
-
+/* inside title screen */
 #titleDiv {
     margin-top: 50px;
     font-size: 50px;
 }
-
 #buttonDiv {
     margin-bottom: 100px;
     /* gap: 10%; */
     /* comeback to spread start and how to buttons apart */
 }
-
 #start {
     padding: 10px;
 }
-
 #howTo {
     padding: 10px;
 }
 
 #gameGrid {
-    display: grid;
+    /* display: none(grid); */
+    display: none;
     height: 600px;
     width: 900px;
     grid-template-columns: 75px 1fr 1fr 1fr 75px;
@@ -67,7 +66,7 @@ body {
 }
 
 #quit {
-    background-color: rgb(55, 135, 255);
+    background-color: rgb(255, 55, 55);
     grid-area: 1 / 4 / 3 / 6;
 }
 

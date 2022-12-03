@@ -23,13 +23,47 @@ class Obstacle {
     render() {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.strokeRect(this.x, this.y, this.width, this.height)
-        ctx.strokeStyle = this.color
     }
 }
 
-const wall = new Obstacle(6, 5, 50, 50, "green")
-wall.render()
+const topWall = new Obstacle(0, 0, 750, 50, "grey")
+const bottomWall = new Obstacle(0, 8, 750, 50, "grey")
+const leftWall = new Obstacle(0, 0, 50, 450, "grey")
+const rightWall = new Obstacle(14, 0, 50, 450, "grey")
+topWall.render()
+bottomWall.render()
+rightWall.render()
+leftWall.render()
+
+class Floor {
+    constructor(x, y) {
+        this.x = x * 50
+        this.y = y * 50
+        this.color = "green"
+        this.width = 50
+        this.height = 50
+    }
+    render() {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // BORDER FOR FLOOR
+        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.strokeStyle = "black"
+    }
+}
+
+const floorOne = new Floor(1, 1)
+const floorTwo = new Floor(1, 2)
+const floorThree = new Floor(1, 3)
+const floorFour = new Floor(1, 4)
+const floorFive = new Floor(1, 5)
+floorOne.render()
+floorTwo.render()
+floorThree.render()
+floorFour.render()
+floorFive.render()
+
+
 
 // TRYING TO MAKE MAPS WITH 0 AND 1
 // const map = () => {

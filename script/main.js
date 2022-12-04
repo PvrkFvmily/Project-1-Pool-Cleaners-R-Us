@@ -54,46 +54,48 @@ class Floor {
 }
 
 // FLOOR GENERATING LOOP
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor1 = new Floor(i, 1)
-        floor1.render()
+const allFloor = () => {
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor1 = new Floor(i, 1)
+            floor1.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor2 = new Floor(i, 2)
-        floor2.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor2 = new Floor(i, 2)
+            floor2.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor3 = new Floor(i, 3)
-        floor3.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor3 = new Floor(i, 3)
+            floor3.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor4 = new Floor(i, 4)
-        floor4.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor4 = new Floor(i, 4)
+            floor4.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor5 = new Floor(i, 5)
-        floor5.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor5 = new Floor(i, 5)
+            floor5.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor6 = new Floor(i, 6)
-        floor6.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor6 = new Floor(i, 6)
+            floor6.render()
+        }
     }
-}
-for (let i = 1; i < 14; i++) {
-    if (i = i) {    
-        const floor7 = new Floor(i, 7)
-        floor7.render()
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor7 = new Floor(i, 7)
+            floor7.render()
+        }
     }
 }
 
@@ -112,10 +114,53 @@ class SSB {
 }
 
 const cleaner = new SSB()
-cleaner.render() 
+
+function scrubbing(e) {
+    const speed = 25
+    switch (e.key) {
+        case('w'):
+            cleaner.y -= speed
+            break
+        case('s'):
+            cleaner.y += speed
+            break
+        case('a'):
+            cleaner.x -= speed
+            break
+        case('d'):
+            cleaner.x += speed
+            break
+        default:
+    }
+}
+document.addEventListener('keydown', scrubbing)
+
+const gameLoopInterval = setInterval(gameLoop, 17)
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    allFloor()
+    cleaner.render()
+}
 
 
+// PLAY && QUIT BUTTON FUNCTION
 
+
+const displayGame = () => {
+    // console.log('show game screen')
+    titleScreen.style.display = "none";
+    gameGrid.style.display = "grid";
+}
+
+const displayTitle = () => {
+    // console.log('show title screen')
+    gameGrid.style.display = "none";
+    titleScreen.style.display = "flex";
+}
+
+start.addEventListener('click', displayGame)
+quit.addEventListener('click', displayTitle)
 
 // const floorOne = new Floor(1, 1)
 // floorOne.render()
@@ -143,49 +188,6 @@ cleaner.render()
 // floorTwel.render()
 // const floorThirt = new Floor(13, 1)
 // floorThirt.render()
-
-
-
-// TRYING TO MAKE MAPS WITH 0 AND 1
-// const map = () => {
-//     if(true) {
-//     } else {
-//         class Floor {
-
-//         }
-//     }
-// }
-
-// PLAYING AROUND CODE
-// ctx.fillStyle = 'green'
-// ctx.fillRect(0, 0, 50, 50)
-// ctx.strokeRect(0, 0, 50, 50)
-// ctx.strokeStyle = "black"
-
-// ctx.fillStyle = 'green'
-// ctx.fillRect(50, 0, 50, 50)
-// ctx.strokeRect(50, 0, 50, 50)
-// ctx.strokeStyle = "black"
-
-
-// PLAY && QUIT BUTTON FUNCTION
-
-
-const displayGame = () => {
-    // console.log('show game screen')
-    titleScreen.style.display = "none";
-    gameGrid.style.display = "grid";
-}
-
-const displayTitle = () => {
-    // console.log('show title screen')
-    gameGrid.style.display = "none";
-    titleScreen.style.display = "flex";
-}
-
-start.addEventListener('click', displayGame)
-quit.addEventListener('click', displayTitle)
-
 
 
 // --- GAME PLAN ---

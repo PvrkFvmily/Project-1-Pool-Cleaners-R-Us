@@ -103,8 +103,19 @@ class SSB {
         this.y = 50
         this.width = 50
         this.height = 50
+        this.color = "white"
+    }
+    render() {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
+
+const cleaner = new SSB()
+cleaner.render() 
+
+
+
 
 // const floorOne = new Floor(1, 1)
 // floorOne.render()

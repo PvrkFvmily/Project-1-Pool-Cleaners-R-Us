@@ -35,6 +35,7 @@ bottomWall.render()
 rightWall.render()
 leftWall.render()
 
+// FLOOR CLASS
 class Floor {
     constructor(x, y) {
         this.x = x * 50
@@ -52,32 +53,85 @@ class Floor {
     }
 }
 
-const floorOne = new Floor(1, 1)
-floorOne.render()
-const floorTwo = new Floor(2, 1)
-floorTwo.render()
-const floorThree = new Floor(3, 1)
-floorThree.render()
-const floorFour = new Floor(4, 1)
-floorFour.render()
-const floorFive = new Floor(5, 1)
-floorFive.render()
-const floorSix = new Floor(6, 1)
-floorSix.render()
-const floorSeven = new Floor(7, 1)
-floorSeven.render()
-const floorEight = new Floor(8, 1)
-floorEight.render()
-const floorNine = new Floor(9, 1)
-floorNine.render()
-const floorTen = new Floor(10, 1)
-floorTen.render()
-const floorElev = new Floor(11, 1)
-floorElev.render()
-const floorTwel = new Floor(12, 1)
-floorTwel.render()
-const floorThirt = new Floor(13, 1)
-floorThirt.render()
+// FLOOR GENERATING LOOP
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor1 = new Floor(i, 1)
+        floor1.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor2 = new Floor(i, 2)
+        floor2.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor3 = new Floor(i, 3)
+        floor3.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor4 = new Floor(i, 4)
+        floor4.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor5 = new Floor(i, 5)
+        floor5.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor6 = new Floor(i, 6)
+        floor6.render()
+    }
+}
+for (let i = 1; i < 14; i++) {
+    if (i = i) {    
+        const floor7 = new Floor(i, 7)
+        floor7.render()
+    }
+}
+
+class SSB {
+    constructor() {
+        this.x = 50
+        this.y = 50
+        this.width = 50
+        this.height = 50
+    }
+}
+
+// const floorOne = new Floor(1, 1)
+// floorOne.render()
+// const floorTwo = new Floor(2, 1)
+// floorTwo.render()
+// const floorThree = new Floor(3, 1)
+// floorThree.render()
+// const floorFour = new Floor(4, 1)
+// floorFour.render()
+// const floorFive = new Floor(5, 1)
+// floorFive.render()
+// const floorSix = new Floor(6, 1)
+// floorSix.render()
+// const floorSeven = new Floor(7, 1)
+// floorSeven.render()
+// const floorEight = new Floor(8, 1)
+// floorEight.render()
+// const floorNine = new Floor(9, 1)
+// floorNine.render()
+// const floorTen = new Floor(10, 1)
+// floorTen.render()
+// const floorElev = new Floor(11, 1)
+// floorElev.render()
+// const floorTwel = new Floor(12, 1)
+// floorTwel.render()
+// const floorThirt = new Floor(13, 1)
+// floorThirt.render()
 
 
 
@@ -104,19 +158,23 @@ floorThirt.render()
 
 
 // PLAY && QUIT BUTTON FUNCTION
+
+
 const displayGame = () => {
-    console.log('')
+    // console.log('show game screen')
     titleScreen.style.display = "none";
     gameGrid.style.display = "grid";
 }
 
 const displayTitle = () => {
+    // console.log('show title screen')
     gameGrid.style.display = "none";
     titleScreen.style.display = "flex";
 }
 
 start.addEventListener('click', displayGame)
 quit.addEventListener('click', displayTitle)
+
 
 
 // --- GAME PLAN ---

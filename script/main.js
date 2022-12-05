@@ -100,10 +100,10 @@ const allFloor = () => {
 
 class SSB {
     constructor() {
-        this.x = 50
-        this.y = 50
-        this.width = 50
-        this.height = 50
+        this.x = 102.5
+        this.y = 102.5
+        this.width = 45
+        this.height = 45
         this.color = "white"
     }
     render() {
@@ -114,8 +114,8 @@ class SSB {
 
 const cleaner = new SSB()
 
+// MOVEMENT
 const keyPress = {}
-
 function scrubbing(speed) {
     if (keyPress.w) {
         cleaner.y -= speed
@@ -132,7 +132,17 @@ function scrubbing(speed) {
 }
 
 document.addEventListener('keydown', e => keyPress[e.key] = true)
-document.addEventListener('keyup', e => keyPress[e.key] = false)
+
+
+const stopMovement = () => {
+    keyPress.w = false
+    keyPress.a = false
+    keyPress.s = false
+    keyPress.d = false
+}
+
+// remove this when block works
+// document.addEventListener('keyup', e => keyPress[e.key] = false)
 
 
 const gameLoopInterval = setInterval(gameLoop, 17)
@@ -146,36 +156,48 @@ function gameLoop() {
     rightWall.render()
     roadBlock.render()
     cleaner.render()
+
+    // hit dectection for side walls
     if(detectObstacle(cleaner, topWall)) {
-        scrubbing(-1)
+        scrubbing(-2)
+        stopMovement()
         console.log('stop')
     } else {
         scrubbing(1)
         console.log('donstop')
     }
+
     if(detectObstacle(cleaner, bottomWall)) {
-        scrubbing(-1)
+        scrubbing(-2)
+        stopMovement()
         console.log('stop')
     } else {
         scrubbing(1)
         console.log('donstop')
     }
+
     if(detectObstacle(cleaner, leftWall)) {
-        scrubbing(-1)
+        scrubbing(-2)
+        stopMovement()
         console.log('stop')
     } else {
         scrubbing(1)
         console.log('donstop')
     }
+
     if(detectObstacle(cleaner, rightWall)) {
-        scrubbing(-1)
+        scrubbing(-2)
+        stopMovement()
         console.log('stop')
     } else {
         scrubbing(1)
         console.log('donstop')
     }
-    // hit detection for the wall
-    // if(detectObstacle() = true) {
+
+    // if(detectObstacle(cleaner, roadBlock)) {
+    //     scrubbing(-1)
+    // } else {
+    //     scrubbing(1)
     // }
 }
 

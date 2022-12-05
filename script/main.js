@@ -117,10 +117,11 @@ const cleaner = new SSB()
 
 function scrubbing(e) {
     const speed = 25
+    let topMove = true
     switch (e.key) {
         case('w'):
-            cleaner.y -= speed
-            break
+                cleaner.y -= speed
+                break
         case('s'):
             cleaner.y += speed
             break
@@ -133,6 +134,7 @@ function scrubbing(e) {
         default:
     }
 }
+
 document.addEventListener('keydown', scrubbing)
 
 const gameLoopInterval = setInterval(gameLoop, 17)
@@ -140,12 +142,23 @@ const gameLoopInterval = setInterval(gameLoop, 17)
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     allFloor()
+    topWall.render()
+    bottomWall.render()
+    leftWall.render()
+    rightWall.render()
     cleaner.render()
+    // hit detection for the wall
 }
 
+function detectObstacle() {
+    const left = cleaner.x + cleaner.width >= topWall.x
+    const right = cleaner.x  <= topWall.x + topWall.width
+    const top = cleaner.y + cleaner.height >= topWall.y
+    const bottom = cleaner.y <= topWall.y + topWall.height
+    return left && right && top && bottom
+}
 
 // PLAY && QUIT BUTTON FUNCTION
-
 
 const displayGame = () => {
     // console.log('show game screen')

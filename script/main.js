@@ -30,10 +30,9 @@ const topWall = new Obstacle(0, 0, 750, 50, "grey")
 const bottomWall = new Obstacle(0, 8, 750, 50, "grey")
 const leftWall = new Obstacle(0, 0, 50, 450, "grey")
 const rightWall = new Obstacle(14, 0, 50, 450, "grey")
-topWall.render()
-bottomWall.render()
-rightWall.render()
-leftWall.render()
+
+const roadBlock = new Obstacle(4, 4, 100, 100, "black")
+
 
 // FLOOR CLASS
 class Floor {
@@ -115,27 +114,26 @@ class SSB {
 
 const cleaner = new SSB()
 
-function scrubbing(e) {
-    const speed = 25
-    let topMove = true
-    switch (e.key) {
-        case('w'):
-                cleaner.y -= speed
-                break
-        case('s'):
-            cleaner.y += speed
-            break
-        case('a'):
-            cleaner.x -= speed
-            break
-        case('d'):
-            cleaner.x += speed
-            break
-        default:
+const keyPress = {}
+
+function scrubbing(speed) {
+    if (keyPress.w) {
+        cleaner.y -= speed
+    }
+    if (keyPress.s) {
+        cleaner.y += speed
+    }
+    if (keyPress.a) {
+        cleaner.x -= speed
+    }
+    if (keyPress.d) {
+        cleaner.x += speed
     }
 }
 
-document.addEventListener('keydown', scrubbing)
+document.addEventListener('keydown', e => keyPress[e.key] = true)
+document.addEventListener('keyup', e => keyPress[e.key] = false)
+
 
 const gameLoopInterval = setInterval(gameLoop, 17)
 
@@ -146,15 +144,47 @@ function gameLoop() {
     bottomWall.render()
     leftWall.render()
     rightWall.render()
+    roadBlock.render()
     cleaner.render()
+    if(detectObstacle(cleaner, topWall)) {
+        scrubbing(-1)
+        console.log('stop')
+    } else {
+        scrubbing(1)
+        console.log('donstop')
+    }
+    if(detectObstacle(cleaner, bottomWall)) {
+        scrubbing(-1)
+        console.log('stop')
+    } else {
+        scrubbing(1)
+        console.log('donstop')
+    }
+    if(detectObstacle(cleaner, leftWall)) {
+        scrubbing(-1)
+        console.log('stop')
+    } else {
+        scrubbing(1)
+        console.log('donstop')
+    }
+    if(detectObstacle(cleaner, rightWall)) {
+        scrubbing(-1)
+        console.log('stop')
+    } else {
+        scrubbing(1)
+        console.log('donstop')
+    }
     // hit detection for the wall
+    // if(detectObstacle() = true) {
+    // }
 }
 
-function detectObstacle() {
-    const left = cleaner.x + cleaner.width >= topWall.x
-    const right = cleaner.x  <= topWall.x + topWall.width
-    const top = cleaner.y + cleaner.height >= topWall.y
-    const bottom = cleaner.y <= topWall.y + topWall.height
+function detectObstacle(cleaner, randomObj) {
+    const left = cleaner.x + cleaner.width >= randomObj.x
+    const right = cleaner.x  <= randomObj.x + randomObj.width
+    const top = cleaner.y + cleaner.height >= randomObj.y
+    const bottom = cleaner.y <= randomObj.y + randomObj.height
+    // console.log(left, right, top, bottom)
     return left && right && top && bottom
 }
 

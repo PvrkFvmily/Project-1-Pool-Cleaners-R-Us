@@ -57,15 +57,16 @@ const allFloor = () => {
     for (let i = 1; i < 14; i++) {
         if (i = i) {    
             const floor1 = new Floor(i, 1)
+            floor1.setAttribute("id", i)
             floor1.render()
         }
     }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor2 = new Floor(i, 2)
-            floor2.render()
-        }
-    }
+    // for (let i = 1; i < 14; i++) {
+    //     if (i = i) {    
+    //         const floor2 = new Floor(i, 2)
+    //         floor2.render()
+    //     }
+    // }
     for (let i = 1; i < 14; i++) {
         if (i = i) {    
             const floor3 = new Floor(i, 3)
@@ -99,9 +100,9 @@ const allFloor = () => {
 }
 
 class SSB {
-    constructor() {
-        this.x = 102.5
-        this.y = 102.5
+    constructor(x, y) {
+        this.x = x + 2.5
+        this.y = y + 2.5
         this.width = 45
         this.height = 45
         this.color = "white"
@@ -112,27 +113,29 @@ class SSB {
     }
 }
 
-const cleaner = new SSB()
+const cleaner = new SSB(50, 50)
 
 // MOVEMENT
-const keyPress = {}
-function scrubbing(speed) {
-    if (keyPress.w) {
-        cleaner.y -= speed
-    }
-    if (keyPress.s) {
-        cleaner.y += speed
-    }
-    if (keyPress.a) {
-        cleaner.x -= speed
-    }
-    if (keyPress.d) {
-        cleaner.x += speed
-    }
-}
+const keyPress = [ ]
 
-document.addEventListener('keydown', e => keyPress[e.key] = true)
 
+document.addEventListener('keydwon', (e) => {
+    console.log(e.key)
+    switch (e.key) {
+        case('w'):
+            cleaner.y -= 5
+            break
+        case('a'):
+            cleaner.x -= 5
+            break
+        case('s'):
+            cleaner.y += 5
+            break
+        case('d'):
+            cleaner.x += 5
+            break
+    }
+})
 
 const stopMovement = () => {
     keyPress.w = false
@@ -141,6 +144,7 @@ const stopMovement = () => {
     keyPress.d = false
 }
 
+const floorOne = new Floor(1, 1)
 // remove this when block works
 // document.addEventListener('keyup', e => keyPress[e.key] = false)
 
@@ -149,49 +153,51 @@ const gameLoopInterval = setInterval(gameLoop, 17)
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    allFloor()
+    // allFloor()
+    // floor1.render()
     topWall.render()
     bottomWall.render()
     leftWall.render()
     rightWall.render()
     roadBlock.render()
     cleaner.render()
-
+    // scrubbing(5)
+    // if(detectObstacle(cleaner, floorOne)) {
+    //     cleaner.render(floorOne.render())
+    // }
+    
     // hit dectection for side walls
     if(detectObstacle(cleaner, topWall)) {
-        scrubbing(-2)
+        scrubbing(-3)
         stopMovement()
-        console.log('stop')
+        // setTimeout()
+        // console.log('stop')
     } else {
-        scrubbing(1)
-        console.log('donstop')
+        // console.log('donstop')
     }
-
+    
     if(detectObstacle(cleaner, bottomWall)) {
-        scrubbing(-2)
+        scrubbing(-3)
         stopMovement()
-        console.log('stop')
+        // console.log('stop')
     } else {
-        scrubbing(1)
-        console.log('donstop')
+        // console.log('donstop')
     }
 
     if(detectObstacle(cleaner, leftWall)) {
-        scrubbing(-2)
+        scrubbing(-3)
         stopMovement()
-        console.log('stop')
+        // console.log('stop')
     } else {
-        scrubbing(1)
-        console.log('donstop')
+        // console.log('donstop')
     }
 
     if(detectObstacle(cleaner, rightWall)) {
-        scrubbing(-2)
+        scrubbing(-3)
         stopMovement()
-        console.log('stop')
+        // console.log('stop')
     } else {
-        scrubbing(1)
-        console.log('donstop')
+        // console.log('donstop')
     }
 
     // if(detectObstacle(cleaner, roadBlock)) {
@@ -227,8 +233,6 @@ const displayTitle = () => {
 start.addEventListener('click', displayGame)
 quit.addEventListener('click', displayTitle)
 
-// const floorOne = new Floor(1, 1)
-// floorOne.render()
 // const floorTwo = new Floor(2, 1)
 // floorTwo.render()
 // const floorThree = new Floor(3, 1)

@@ -18,7 +18,7 @@ class Obstacle {
         this.y = y * 50
         this.width = width
         this.height = height
-        this.color = color
+        this.color = "grey"
     }
     render() {
         ctx.fillStyle = this.color
@@ -26,12 +26,27 @@ class Obstacle {
     }
 }
 
+// const allObstacle = () => {
+//     for (let i = 1; i < 15; i++) {
+//         if (i = i) {
+//             const obstacle1 = new Obstacle(i, 0)
+//             obstacle1.render()
+//         }
+//     }
+//     for (let i = 1; i < 15; i++) {
+//         if (i = i) {
+//             const obstacle1 = new Obstacle(i, 0)
+//             obstacle1.render()
+//         }
+//     }
+// }
+
 const topWall = new Obstacle(0, 0, 750, 50, "grey")
 const bottomWall = new Obstacle(0, 8, 750, 50, "grey")
 const leftWall = new Obstacle(0, 0, 50, 450, "grey")
 const rightWall = new Obstacle(14, 0, 50, 450, "grey")
 
-const roadBlock = new Obstacle(4, 4, 100, 100, "black")
+// const roadBlock = new Obstacle(4, 4, 100, 100, "black")
 
 
 // FLOOR CLASS
@@ -57,16 +72,15 @@ const allFloor = () => {
     for (let i = 1; i < 14; i++) {
         if (i = i) {    
             const floor1 = new Floor(i, 1)
-            floor1.setAttribute("id", i)
             floor1.render()
         }
     }
-    // for (let i = 1; i < 14; i++) {
-    //     if (i = i) {    
-    //         const floor2 = new Floor(i, 2)
-    //         floor2.render()
-    //     }
-    // }
+    for (let i = 1; i < 14; i++) {
+        if (i = i) {    
+            const floor2 = new Floor(i, 2)
+            floor2.render()
+        }
+    }
     for (let i = 1; i < 14; i++) {
         if (i = i) {    
             const floor3 = new Floor(i, 3)
@@ -117,15 +131,14 @@ class SSB {
 
 const cleaner = new SSB(50, 50)
 
-// MOVEMENT
-
-
+// MOVEMENT TRACKS WHAT KEY HAS BEEN PRESSED
 document.addEventListener('keydown', (e) => {
     // console.log(e.key)
+    // DEPENDING WHAT KEY PRESSED FIRES CASE FUNCTION
     switch (e.key) {
+        // IF PLAYER IS NOT MOVING CHANGE IT TO MOVING AND SET DIRECTION
         case('w'):
             if (!cleaner.isMoving) {
-
                 cleaner.isMoving = true
                 cleaner.direction = 'up'
                 console.log(cleaner.direction)
@@ -133,7 +146,6 @@ document.addEventListener('keydown', (e) => {
             break
             case('a'):
             if (!cleaner.isMoving) {
-                
                 cleaner.isMoving = true
                 cleaner.direction = 'left'
                 console.log(cleaner.direction)
@@ -141,7 +153,6 @@ document.addEventListener('keydown', (e) => {
             break
             case('s'):
             if (!cleaner.isMoving) {
-                
                 cleaner.isMoving = true
                 cleaner.direction = 'down'
                 console.log(cleaner.direction)
@@ -149,7 +160,6 @@ document.addEventListener('keydown', (e) => {
             break
             case('d'):
             if (!cleaner.isMoving) {
-                
                 cleaner.isMoving = true
                 cleaner.direction = 'right'
                 console.log(cleaner.direction)
@@ -158,60 +168,56 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-const stopMovement = () => {
-    keyPress.w = false
-    keyPress.a = false
-    keyPress.s = false
-    keyPress.d = false
-}
-
-const floorOne = new Floor(1, 1)
 // remove this when block works
 // document.addEventListener('keyup', e => keyPress[e.key] = false)
 
 
-const gameLoopInterval = setInterval(gameLoop, 60)
+const gameLoopInterval = setInterval(gameLoop, 17)
 
+// ---GAME LOOP---
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // allFloor()
-    // floor1.render()
+    allFloor()
+    // allObstacle()
+    cleaner.render()
+    // console.log('looprunning')
     topWall.render()
     bottomWall.render()
     leftWall.render()
     rightWall.render()
-    roadBlock.render()
-    cleaner.render()
-    // console.log('looprunning')
-    // hit dectection 
+    // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {
             case ('up'):
                 console.log(cleaner.isMoving)
-                cleaner.y -= 5
-                if(!detectObstacle) {
+                if(detectObstacle(cleaner, topWall)) {
                     cleaner.isMoving = false
+                } else {
+                    cleaner.y -= 10
                 }
                 break
             case ('left'):
                 console.log(cleaner.isMoving)
-                cleaner.x -= 5
-                if(!detectObstacle) {
+                if(detectObstacle(cleaner, leftWall)) {
                     cleaner.isMoving = false
+                } else {
+                    cleaner.x -= 10
                 }
                 break
             case ('down'):
                 console.log(cleaner.isMoving)
-                cleaner.y += 5
-                if(!detectObstacle) {
+                if(detectObstacle(cleaner, bottomWall)) {
                     cleaner.isMoving = false
+                } else {
+                    cleaner.y += 10
                 }
                 break
             case ('right'):
                 console.log(cleaner.isMoving)
-                cleaner.x += 5
                 if(detectObstacle(cleaner, rightWall)) {
                     cleaner.isMoving = false
+                } else {
+                    cleaner.x += 25
                 }
                 break
             }

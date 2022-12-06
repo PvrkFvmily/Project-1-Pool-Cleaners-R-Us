@@ -101,11 +101,13 @@ const allFloor = () => {
 
 class SSB {
     constructor(x, y) {
-        this.x = x + 2.5
-        this.y = y + 2.5
-        this.width = 45
-        this.height = 45
+        this.x = x
+        this.y = y
+        this.width = 50
+        this.height = 50
         this.color = "white"
+        this.isMoving = false
+        this.direction = " "
     }
     render() {
         ctx.fillStyle = this.color
@@ -116,23 +118,42 @@ class SSB {
 const cleaner = new SSB(50, 50)
 
 // MOVEMENT
-const keyPress = [ ]
 
 
-document.addEventListener('keydwon', (e) => {
-    console.log(e.key)
+document.addEventListener('keydown', (e) => {
+    // console.log(e.key)
     switch (e.key) {
         case('w'):
-            cleaner.y -= 5
+            if (!cleaner.isMoving) {
+
+                cleaner.isMoving = true
+                cleaner.direction = 'up'
+                console.log(cleaner.direction)
+            }
             break
-        case('a'):
-            cleaner.x -= 5
+            case('a'):
+            if (!cleaner.isMoving) {
+                
+                cleaner.isMoving = true
+                cleaner.direction = 'left'
+                console.log(cleaner.direction)
+            }
             break
-        case('s'):
-            cleaner.y += 5
+            case('s'):
+            if (!cleaner.isMoving) {
+                
+                cleaner.isMoving = true
+                cleaner.direction = 'down'
+                console.log(cleaner.direction)
+            }
             break
-        case('d'):
-            cleaner.x += 5
+            case('d'):
+            if (!cleaner.isMoving) {
+                
+                cleaner.isMoving = true
+                cleaner.direction = 'right'
+                console.log(cleaner.direction)
+            }
             break
     }
 })
@@ -149,7 +170,7 @@ const floorOne = new Floor(1, 1)
 // document.addEventListener('keyup', e => keyPress[e.key] = false)
 
 
-const gameLoopInterval = setInterval(gameLoop, 17)
+const gameLoopInterval = setInterval(gameLoop, 60)
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -161,50 +182,41 @@ function gameLoop() {
     rightWall.render()
     roadBlock.render()
     cleaner.render()
-    // scrubbing(5)
-    // if(detectObstacle(cleaner, floorOne)) {
-    //     cleaner.render(floorOne.render())
-    // }
-    
-    // hit dectection for side walls
-    if(detectObstacle(cleaner, topWall)) {
-        scrubbing(-3)
-        stopMovement()
-        // setTimeout()
-        // console.log('stop')
-    } else {
-        // console.log('donstop')
-    }
-    
-    if(detectObstacle(cleaner, bottomWall)) {
-        scrubbing(-3)
-        stopMovement()
-        // console.log('stop')
-    } else {
-        // console.log('donstop')
-    }
-
-    if(detectObstacle(cleaner, leftWall)) {
-        scrubbing(-3)
-        stopMovement()
-        // console.log('stop')
-    } else {
-        // console.log('donstop')
-    }
-
-    if(detectObstacle(cleaner, rightWall)) {
-        scrubbing(-3)
-        stopMovement()
-        // console.log('stop')
-    } else {
-        // console.log('donstop')
+    // console.log('looprunning')
+    // hit dectection 
+    if (cleaner.isMoving) {
+        switch (cleaner.direction) {
+            case ('up'):
+                console.log(cleaner.isMoving)
+                cleaner.y -= 5
+                if(!detectObstacle) {
+                    cleaner.isMoving = false
+                }
+                break
+            case ('left'):
+                console.log(cleaner.isMoving)
+                cleaner.x -= 5
+                if(!detectObstacle) {
+                    cleaner.isMoving = false
+                }
+                break
+            case ('down'):
+                console.log(cleaner.isMoving)
+                cleaner.y += 5
+                if(!detectObstacle) {
+                    cleaner.isMoving = false
+                }
+                break
+            case ('right'):
+                console.log(cleaner.isMoving)
+                cleaner.x += 5
+                if(detectObstacle(cleaner, rightWall)) {
+                    cleaner.isMoving = false
+                }
+                break
+            }
     }
 
-    // if(detectObstacle(cleaner, roadBlock)) {
-    //     scrubbing(-1)
-    // } else {
-    //     scrubbing(1)
-    // }
 }
 
 function detectObstacle(cleaner, randomObj) {

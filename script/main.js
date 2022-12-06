@@ -41,24 +41,29 @@ class Obstacle {
 }
 
 const mapObstacles = [
-    ['-','-','-','-','-','-','-','-','-','-','-','-','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-']
+    ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
 ]
 
-const obstacles = [
-    new Obstacle(0, 0)
-]
+const obstacles = []
 
-// mapObstacles.forEach((row) => {
-//     row.forEach((dash) => {
-//         console.log(dash)
-//         switch(dash) {
-//             case('-'):
-//                 obstacles.push((new Obstacle(50, 50)))
-//             break
-//         }
-//     })
-// })
+mapObstacles.forEach((row, k) => {
+    row.forEach((dash, i) => {
+        console.log(dash)
+        switch(dash) {
+            case('-'):
+                obstacles.push((new Obstacle(50 * i,50 * k)))
+            break
+            }
+        })
+})
 
 
 
@@ -220,7 +225,7 @@ function gameLoop() {
         switch (cleaner.direction) {
             case ('up'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, topWall)) {
+                if(detectObstacle(cleaner, obstacles)) {
                     cleaner.isMoving = false
                 } else {
                     cleaner.y -= 10
@@ -228,7 +233,7 @@ function gameLoop() {
                 break
             case ('left'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, leftWall)) {
+                if(detectObstacle(cleaner, obstacles)) {
                     cleaner.isMoving = false
                 } else {
                     cleaner.x -= 10
@@ -236,7 +241,7 @@ function gameLoop() {
                 break
             case ('down'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, bottomWall)) {
+                if(detectObstacle(cleaner, obstacles)) {
                     cleaner.isMoving = false
                 } else {
                     cleaner.y += 10
@@ -244,7 +249,7 @@ function gameLoop() {
                 break
             case ('right'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, rightWall)) {
+                if(detectObstacle(cleaner, obstacles)) {
                     cleaner.isMoving = false
                 } else {
                     cleaner.x += 25

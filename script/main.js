@@ -12,8 +12,8 @@ canvas.setAttribute('width', getComputedStyle(main)['width'])
 const ctx = canvas.getContext('2d')
 
 // CLASS OBSTACLE CREATION
-class Obstacle {
-    constructor(x, y, width, height, color) {
+class wall {
+    constructor(x, y, width, height) {
         this.x = x * 50
         this.y = y * 50
         this.width = width
@@ -26,25 +26,50 @@ class Obstacle {
     }
 }
 
-// const allObstacle = () => {
-//     for (let i = 1; i < 15; i++) {
-//         if (i = i) {
-//             const obstacle1 = new Obstacle(i, 0)
-//             obstacle1.render()
-//         }
-//     }
-//     for (let i = 1; i < 15; i++) {
-//         if (i = i) {
-//             const obstacle1 = new Obstacle(i, 0)
-//             obstacle1.render()
-//         }
-//     }
-// }
+class Obstacle {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.width = 50
+        this.height = 50
+        this.color = "grey"
+    }
+    render() {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+    }
+}
 
-const topWall = new Obstacle(0, 0, 750, 50, "grey")
-const bottomWall = new Obstacle(0, 8, 750, 50, "grey")
-const leftWall = new Obstacle(0, 0, 50, 450, "grey")
-const rightWall = new Obstacle(14, 0, 50, 450, "grey")
+const mapObstacles = [
+    ['-','-','-','-','-','-','-','-','-','-','-','-','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-']
+]
+
+const obstacles = [
+    new Obstacle(0, 0)
+]
+
+// mapObstacles.forEach((row) => {
+//     row.forEach((dash) => {
+//         console.log(dash)
+//         switch(dash) {
+//             case('-'):
+//                 obstacles.push((new Obstacle(50, 50)))
+//             break
+//         }
+//     })
+// })
+
+
+
+
+
+const wallWall = new Obstacle(0, 0)
+
+const topWall = new wall(0, 0, 750, 50, "grey")
+const bottomWall = new wall(0, 8, 750, 50, "grey")
+const leftWall = new wall(0, 0, 50, 450, "grey")
+const rightWall = new wall(14, 0, 50, 450, "grey")
 
 // const roadBlock = new Obstacle(4, 4, 100, 100, "black")
 
@@ -179,12 +204,17 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     allFloor()
     // allObstacle()
+    obstacles.forEach((obstacle) => {
+        obstacle.render()
+    })
+    
     cleaner.render()
     // console.log('looprunning')
-    topWall.render()
-    bottomWall.render()
-    leftWall.render()
-    rightWall.render()
+    // topWall.render()
+    // bottomWall.render()
+    // leftWall.render()
+    // rightWall.render()
+    // wallWall.render()
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {

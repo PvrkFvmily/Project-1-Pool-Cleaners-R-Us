@@ -13,20 +13,6 @@ canvas.setAttribute('width', getComputedStyle(main)['width'])
 const ctx = canvas.getContext('2d')
 
 // CLASS OBSTACLE CREATION
-class wall {
-    constructor(x, y, width, height) {
-        this.x = x * 50
-        this.y = y * 50
-        this.width = width
-        this.height = height
-        this.color = "grey"
-    }
-    render() {
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-    }
-}
-
 class Obstacle {
     constructor(x, y) {
         this.x = x
@@ -53,7 +39,7 @@ const mapObstacles = [
     ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-']
 ]
 
-const obstacles = []
+let obstacles = []
 
 mapObstacles.forEach((row, k) => {
     row.forEach((dash, i) => {
@@ -97,12 +83,11 @@ const mapFloor = [
     [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
 ]
 
-const floors = []
-
-let totalClean = 0
+let floors = []
 
 // FLOOR GENERATING LOOP
-mapFloor.forEach((row, k) => {
+const generateFloor = () => {
+    mapFloor.forEach((row, k) => {
     row.forEach((dash, i) => {
         // console.log(dash)
         switch(dash) {
@@ -112,6 +97,8 @@ mapFloor.forEach((row, k) => {
             }
         })
 })
+
+}
 
 class SSB {
     constructor(x, y) {
@@ -175,7 +162,7 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-const gameLoopInterval = setInterval(gameLoop, 17)
+setInterval(gameLoop, 17)
 
 // ---GAME LOOP---
 function gameLoop() {
@@ -241,7 +228,8 @@ function gameLoop() {
         // console.log('win')
         cleaner.xspeed = 0
         cleaner.yspeed = 0
-        message.innerHTML = "you win"
+        cleaner.isMoving = false
+        message.innerText = "YOU WON! SUPER CLEAN POOL!"
     }
 }
 
@@ -250,8 +238,12 @@ function gameLoop() {
 const displayGame = () => {
     // console.log('show game screen')
     titleScreen.style.display = "none";
-    gameGrid.style.display = "grid";
-    
+    gameGrid.style.display = "grid"
+    floors = []
+    generateFloor()
+    cleaner.x = 52.5
+    cleaner.y = 52.5
+    message.innerText = " "
 }
 
 const displayTitle = () => {

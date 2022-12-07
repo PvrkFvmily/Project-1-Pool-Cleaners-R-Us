@@ -112,24 +112,6 @@ mapFloor.forEach((row, k) => {
         })
 })
 
-console.log(floors)
-const winCheck = () => {
-    console.log('winchecking')
-    for (let i = 0; i < floors.length; i++) {
-        if (floors[i].clean) {
-            totalClean += 1
-            console.log(totalClean)
-        } else {
-            totalClean = 0
-            console.log('reset cleaned')
-        }
-        // if(totalClean = 72) {
-        //     console.log('win')
-        // }
-        // console.log(cleanFloor)
-    }
-}
-
 class SSB {
     constructor(x, y) {
         this.x = x + 2.5
@@ -192,19 +174,6 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-// const winCheck = () => {
-//     // console.log('winchecking')
-//     for (let i = 0; i < floors.length; i++) {
-//         let cleanFloor = 0
-//         if(floors[i].value === floors.length) {
-//             cleanFloor += 1  
-//             // console.log('added')
-//         }
-//         // console.log(cleanFloor)
-//     }
-// }
-
-
 const gameLoopInterval = setInterval(gameLoop, 17)
 
 // ---GAME LOOP---
@@ -232,23 +201,10 @@ function gameLoop() {
             cleaner.x + cleaner.xspeed <= floor.x + floor.width) {
                 floor.color = "blue"
                 floor.clean = true
-                // console.log(floor.clean)
             }
-        // for (let i = 0; i < floors.length; i++) {
-        //     if(floors.clean) {
-        //         totalClean += 1
-        //         console.log(totalClean)
-        // } else {
-        //     totalClean = 0
-        // }
-        // if(totalClean = 72) {
-        //     console.log('surviver')
-        // }
-        // console.log(cleanFloor)
-        // }
     })
+
     cleaner.update()
-    winCheck()
 
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
@@ -271,10 +227,24 @@ function gameLoop() {
                 break
             }
     }
+
+    let counter = 0
+
+    floors.forEach(floor => {
+        if (floor.clean === true) {
+            counter++
+        }
+    })
+
+    if (counter === floors.length) {
+        console.log('win')
+        cleaner.xspeed = 0
+        cleaner.yspeed = 0
+    }
 }
 
 // PLAY && QUIT BUTTON FUNCTION
-
+                                                                                                                             
 const displayGame = () => {
     // console.log('show game screen')
     titleScreen.style.display = "none";
@@ -289,32 +259,6 @@ const displayTitle = () => {
 
 start.addEventListener('click', displayGame)
 quit.addEventListener('click', displayTitle)
-
-// const floorTwo = new Floor(2, 1)
-// floorTwo.render()
-// const floorThree = new Floor(3, 1)
-// floorThree.render()
-// const floorFour = new Floor(4, 1)
-// floorFour.render()
-// const floorFive = new Floor(5, 1)
-// floorFive.render()
-// const floorSix = new Floor(6, 1)
-// floorSix.render()
-// const floorSeven = new Floor(7, 1)
-// floorSeven.render()
-// const floorEight = new Floor(8, 1)
-// floorEight.render()
-// const floorNine = new Floor(9, 1)
-// floorNine.render()
-// const floorTen = new Floor(10, 1)
-// floorTen.render()
-// const floorElev = new Floor(11, 1)
-// floorElev.render()
-// const floorTwel = new Floor(12, 1)
-// floorTwel.render()
-// const floorThirt = new Floor(13, 1)
-// floorThirt.render()
-
 
 // --- GAME PLAN ---
 // --- TITLE SCREEN ---

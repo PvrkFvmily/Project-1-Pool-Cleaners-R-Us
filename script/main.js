@@ -73,7 +73,7 @@ class Floor {
         this.color = "green"
         this.width = 50
         this.height = 50
-        this.cleanFloor = value
+        this.clean = false
     }
     render() {
         ctx.fillStyle = this.color
@@ -98,6 +98,8 @@ const mapFloor = [
 
 const floors = []
 
+let totalClean = 0
+
 // FLOOR GENERATING LOOP
 mapFloor.forEach((row, k) => {
     row.forEach((dash, i) => {
@@ -109,6 +111,24 @@ mapFloor.forEach((row, k) => {
             }
         })
 })
+
+console.log(floors)
+const winCheck = () => {
+    console.log('winchecking')
+    for (let i = 0; i < floors.length; i++) {
+        if (floors[i].clean) {
+            totalClean += 1
+            console.log(totalClean)
+        } else {
+            totalClean = 0
+            console.log('reset cleaned')
+        }
+        // if(totalClean = 72) {
+        //     console.log('win')
+        // }
+        // console.log(cleanFloor)
+    }
+}
 
 class SSB {
     constructor(x, y) {
@@ -172,9 +192,6 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-// remove this when block works
-// document.addEventListener('keyup', e => keyPress[e.key] = false)
-
 // const winCheck = () => {
 //     // console.log('winchecking')
 //     for (let i = 0; i < floors.length; i++) {
@@ -214,14 +231,25 @@ function gameLoop() {
             cleaner.y + cleaner.height + cleaner.yspeed >= floor.y &&
             cleaner.x + cleaner.xspeed <= floor.x + floor.width) {
                 floor.color = "blue"
-                floor.cleanFloor = 1
-                // console.log(floor.cleanFloor)
-        }
-        if (floor.value = 0) {
-            console.log('hi')
-        }
+                floor.clean = true
+                // console.log(floor.clean)
+            }
+        // for (let i = 0; i < floors.length; i++) {
+        //     if(floors.clean) {
+        //         totalClean += 1
+        //         console.log(totalClean)
+        // } else {
+        //     totalClean = 0
+        // }
+        // if(totalClean = 72) {
+        //     console.log('surviver')
+        // }
+        // console.log(cleanFloor)
+        // }
     })
     cleaner.update()
+    winCheck()
+
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {

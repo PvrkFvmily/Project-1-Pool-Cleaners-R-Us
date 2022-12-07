@@ -42,14 +42,14 @@ class Obstacle {
 
 const mapObstacles = [
     ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
-    ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
+    ['-',' ',' ',' ',' ','-',' ',' ',' ',' ',' ',' ',' ','-','-'],
+    ['-',' ','-','-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ','-',' ',' ',' ',' ',' ',' ',' ',' ','-',' ',' ','-'],
+    ['-',' ','-',' ',' ','-','-','-','-','-',' ','-',' ',' ','-'],
+    ['-',' ','-',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','-'],
+    ['-',' ','-','-',' ',' ',' ',' ',' ',' ',' ','-',' ',' ','-'],
+    ['-',' ',' ',' ',' ',' ',' ',' ',' ',' ','-','-',' ',' ','-'],
+    ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-']
 ]
 
 const obstacles = []
@@ -65,22 +65,15 @@ mapObstacles.forEach((row, k) => {
         })
 })
 
-// const topWall = new wall(0, 0, 750, 50, "grey")
-// const bottomWall = new wall(0, 8, 750, 50, "grey")
-// const leftWall = new wall(0, 0, 50, 450, "grey")
-// const rightWall = new wall(14, 0, 50, 450, "grey")
-
-// const roadBlock = new Obstacle(4, 4, 100, 100, "black")
-
-
 // FLOOR CLASS
 class Floor {
-    constructor(x, y) {
-        this.x = x * 50
-        this.y = y * 50
+    constructor(x, y, value) {
+        this.x = x
+        this.y = y
         this.color = "green"
         this.width = 50
         this.height = 50
+        this.cleanFloor = value
     }
     render() {
         ctx.fillStyle = this.color
@@ -91,60 +84,40 @@ class Floor {
     }
 }
 
+const mapFloor = [
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ','-','-','-','-',' ','-','-','-','-','-','-','-',' ',' '],
+    [' ','-',' ',' ','-','-','-','-','-','-','-','-','-','-',' '],
+    [' ','-',' ','-','-','-','-','-','-','-','-',' ','-','-',' '],
+    [' ','-',' ','-','-',' ',' ',' ',' ',' ','-',' ','-','-',' '],
+    [' ','-',' ','-','-','-','-','-','-','-','-','-','-','-',' '],
+    [' ','-',' ',' ','-','-','-','-','-','-','-',' ','-','-',' '],
+    [' ','-','-','-','-','-','-','-','-','-',' ',' ','-','-',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+]
+
+const floors = []
+
 // FLOOR GENERATING LOOP
-const allFloor = () => {
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor1 = new Floor(i, 1)
-            floor1.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor2 = new Floor(i, 2)
-            floor2.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor3 = new Floor(i, 3)
-            floor3.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor4 = new Floor(i, 4)
-            floor4.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor5 = new Floor(i, 5)
-            floor5.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor6 = new Floor(i, 6)
-            floor6.render()
-        }
-    }
-    for (let i = 1; i < 14; i++) {
-        if (i = i) {    
-            const floor7 = new Floor(i, 7)
-            floor7.render()
-        }
-    }
-}
+mapFloor.forEach((row, k) => {
+    row.forEach((dash, i) => {
+        // console.log(dash)
+        switch(dash) {
+            case('-'):
+                floors.push((new Floor(50 * i, 50 * k, 0)))
+            break
+            }
+        })
+})
 
 class SSB {
     constructor(x, y) {
-        this.x = x
-        this.y = y
+        this.x = x + 2.5
+        this.y = y + 2.5
         this.xspeed = 0
         this.yspeed = 0
-        this.width = 50
-        this.height = 50
+        this.width = 45
+        this.height = 45
         this.color = "white"
         this.isMoving = false
         this.direction = " "
@@ -160,7 +133,7 @@ class SSB {
     }
 }
 
-const cleaner = new SSB(100, 100)
+const cleaner = new SSB(50, 50)
 
 // MOVEMENT TRACKS WHAT KEY HAS BEEN PRESSED
 document.addEventListener('keydown', (e) => {
@@ -172,28 +145,28 @@ document.addEventListener('keydown', (e) => {
             if (!cleaner.isMoving) {
                 cleaner.isMoving = true
                 cleaner.direction = 'up'
-                console.log(cleaner.direction)
+                // console.log(cleaner.direction)
             }
             break
             case('a'):
             if (!cleaner.isMoving) {
                 cleaner.isMoving = true
                 cleaner.direction = 'left'
-                console.log(cleaner.direction)
+                // console.log(cleaner.direction)
             }
             break
             case('s'):
             if (!cleaner.isMoving) {
                 cleaner.isMoving = true
                 cleaner.direction = 'down'
-                console.log(cleaner.direction)
+                // console.log(cleaner.direction)
             }
             break
             case('d'):
             if (!cleaner.isMoving) {
                 cleaner.isMoving = true
                 cleaner.direction = 'right'
-                console.log(cleaner.direction)
+                // console.log(cleaner.direction)
             }
             break
     }
@@ -202,13 +175,24 @@ document.addEventListener('keydown', (e) => {
 // remove this when block works
 // document.addEventListener('keyup', e => keyPress[e.key] = false)
 
+// const winCheck = () => {
+//     // console.log('winchecking')
+//     for (let i = 0; i < floors.length; i++) {
+//         let cleanFloor = 0
+//         if(floors[i].value === floors.length) {
+//             cleanFloor += 1  
+//             // console.log('added')
+//         }
+//         // console.log(cleanFloor)
+//     }
+// }
+
 
 const gameLoopInterval = setInterval(gameLoop, 17)
 
 // ---GAME LOOP---
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    allFloor()
     
     obstacles.forEach((obstacle) => {
         obstacle.render()
@@ -216,107 +200,50 @@ function gameLoop() {
             cleaner.x + cleaner.width + cleaner.xspeed >= obstacle.x &&
             cleaner.y + cleaner.height + cleaner.yspeed >= obstacle.y &&
             cleaner.x + cleaner.xspeed <= obstacle.x + obstacle.width) {
-                console.log('colliding')
+                // console.log('colliding')
                 cleaner.xspeed = 0
                 cleaner.yspeed = 0
                 cleaner.isMoving = false
         }
-        // if (cleaner.isMoving) {
-        //     switch (cleaner.direction) {
-        //         case('up'):
-        //         if (detectObstacle(cleaner, obstacle)) {
-        //             cleaner.isMoving = false
-        //             cleaner.xspeed = 0
-        //         }
-        //         break
-        //         case('left'):
-        //         if (detectObstacle(cleaner, obstacle)) {
-        //             cleaner.isMoving = false
-        //             cleaner.xspeed = 0
-        //         }
-        //         break
-        //         case('down'):
-        //         if (detectObstacle(cleaner, obstacle)) {
-        //             cleaner.isMoving = false
-        //         }
-        //         case('right'):
-        //         if (detectObstacle(cleaner, obstacle)) {
-        //             cleaner.isMoving = false
-        //         }
-        //     }
+    })
 
-        // }
+    floors.forEach((floor) => {
+        floor.render()
+        if (cleaner.y + cleaner.yspeed <= floor.y + floor.height && 
+            cleaner.x + cleaner.width + cleaner.xspeed >= floor.x &&
+            cleaner.y + cleaner.height + cleaner.yspeed >= floor.y &&
+            cleaner.x + cleaner.xspeed <= floor.x + floor.width) {
+                floor.color = "blue"
+                floor.cleanFloor = 1
+                // console.log(floor.cleanFloor)
+        }
+        if (floor.value = 0) {
+            console.log('hi')
+        }
     })
     cleaner.update()
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {
             case ('up'):
-                console.log(cleaner.isMoving)
-                cleaner.yspeed = -5
+                // console.log(cleaner.isMoving)
+                cleaner.yspeed = -25
                 break
             case ('left'):
-                console.log(cleaner.isMoving)
-                cleaner.xspeed = -5
+                // console.log(cleaner.isMoving)
+                cleaner.xspeed = -25
                 break
             case ('down'):
-                console.log(cleaner.isMoving)
-                cleaner.yspeed = 5
+                // console.log(cleaner.isMoving)
+                cleaner.yspeed = 25
                 break
             case ('right'):
-                console.log(cleaner.isMoving)
-                cleaner.xspeed = 5
+                // console.log(cleaner.isMoving)d
+                cleaner.xspeed = 25
                 break
             }
     }
-    // if (cleaner.isMoving) {
-    //     switch (cleaner.direction) {
-    //         case ('up'):
-    //             console.log(cleaner.isMoving)
-    //             if(detectObstacle(cleaner, obstacles)) {
-    //                 cleaner.isMoving = false
-    //             } else {
-    //                 cleaner.y -= 10
-    //             }
-    //             break
-    //         case ('left'):
-    //             console.log(cleaner.isMoving)
-    //             if(detectObstacle(cleaner, obstacles)) {
-    //                 cleaner.isMoving = false
-    //             } else {
-    //                 cleaner.x -= 10
-    //             }
-    //             break
-    //         case ('down'):
-    //             console.log(cleaner.isMoving)
-    //             if(detectObstacle(cleaner, obstacles)) {
-    //                 cleaner.isMoving = false
-    //             } else {
-    //                 cleaner.y += 10
-    //             }
-    //             break
-    //         case ('right'):
-    //             console.log(cleaner.isMoving)
-    //             if(detectObstacle(cleaner, obstacles)) {
-    //                 cleaner.isMoving = false
-    //             } else {
-    //                 cleaner.x += 10
-    //             }
-    //             break
-    //         }
-    // }
-
 }
-
-
-// function detectObstacle(cleaner, randomObj) {
-//     const left = cleaner.x + cleaner.width >= randomObj.x
-//     const right = cleaner.x  <= randomObj.x + randomObj.width
-//     const top = cleaner.y + cleaner.height >= randomObj.y
-//     const bottom = cleaner.y <= randomObj.y + randomObj.height
-//     // console.log(left, right, top, bottom)
-//     return left && right && top && bottom
-// }
 
 // PLAY && QUIT BUTTON FUNCTION
 

@@ -5,6 +5,7 @@ const titleScreen = document.getElementById('titleScreen')
 const gameGrid = document.getElementById('gameGrid')
 const main = document.querySelector('main')
 const canvas = document.querySelector('canvas')
+const message = document.querySelector('#stageNum')
 
 // CANVAS
 canvas.setAttribute('height', getComputedStyle(main)['height'])
@@ -176,6 +177,12 @@ document.addEventListener('keydown', (e) => {
 
 const gameLoopInterval = setInterval(gameLoop, 17)
 
+// const winScreen = () => {
+//     clearInterval(gameLoopInterval)
+    
+// }
+
+
 // ---GAME LOOP---
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -237,9 +244,10 @@ function gameLoop() {
     })
 
     if (counter === floors.length) {
-        console.log('win')
+        // console.log('win')
         cleaner.xspeed = 0
         cleaner.yspeed = 0
+        message.innerHTML = "you win"
     }
 }
 
@@ -249,6 +257,7 @@ const displayGame = () => {
     // console.log('show game screen')
     titleScreen.style.display = "none";
     gameGrid.style.display = "grid";
+    
 }
 
 const displayTitle = () => {

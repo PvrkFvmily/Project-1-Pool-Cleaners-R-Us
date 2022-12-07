@@ -13,24 +13,27 @@ body {
 
 #titleScreen {
     /* display: none(flex); while working on gameGrid */
-    display: none;
+    display: flex;
     height: 600px;
     width: 900px;
     flex-direction: column;
+    align-content: center;
     align-items: center;
     justify-content: space-between;
-    background-color: hotpink;
+    background-color: rgb(68, 68, 219)
 }
 /* inside title screen */
 #titleDiv {
     margin-top: 50px;
     font-size: 50px;
 }
-#buttonDiv {
+
+#bottomDiv {
     margin-bottom: 100px;
-    /* gap: 10%; */
-    /* comeback to spread start and how to buttons apart */
 }
+/* #howTo {
+    display: inline-block;
+} */
 #start {
     padding: 10px;
 }
@@ -40,14 +43,13 @@ body {
 
 #gameGrid {
     /* display: none(grid); */
-    display: grid;
+    display: none;
     height: 600px;
     width: 900px;
     grid-template-columns: 75px 1fr 1fr 1fr 75px;
     grid-template-rows: 37.5px 37.5px 37.5px 1fr 1fr 37.5px;
     background-color: rgb(215, 213, 213);
 }
-
 /* what's inside gameGrid */
 #inGameTitle, #stageNum, #quit, #canvas {
     display: flex;

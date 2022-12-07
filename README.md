@@ -1,6 +1,6 @@
 # Pool Cleaners"R"Us
 
-Welcome to Pool Cleaners"R"Us where we will turn into a scrubbing block and clean those filty pools. Our Super Scrub Block(SSB) is so good that you'll clean the pool with one single sweep. But here is the problem, it is so good that you won't stop going foward until you hit a wall.
+Welcome to Pool Cleaners"R"Us where we will turn into a scrubbing block and clean those filty pools. Our Super Scrub Block(SSB) is so good that you'll clean the pool with one single sweep. But here is the problem, it is so good that you won't stop going forward until you hit a wall.
 
 Your job is to skillfully hit a wall so that you can clean the whole pool.
 

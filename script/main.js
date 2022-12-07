@@ -177,12 +177,6 @@ document.addEventListener('keydown', (e) => {
 
 const gameLoopInterval = setInterval(gameLoop, 17)
 
-// const winScreen = () => {
-//     clearInterval(gameLoopInterval)
-    
-// }
-
-
 // ---GAME LOOP---
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -265,6 +259,8 @@ const displayTitle = () => {
     gameGrid.style.display = "none";
     titleScreen.style.display = "flex";
 }
+
+displayTitle()
 
 start.addEventListener('click', displayGame)
 quit.addEventListener('click', displayTitle)

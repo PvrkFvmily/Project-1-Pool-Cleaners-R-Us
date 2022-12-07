@@ -13,7 +13,7 @@ body {
 
 #titleScreen {
     /* display: none(flex); while working on gameGrid */
-    display: flex;
+    display: none;
     height: 600px;
     width: 900px;
     flex-direction: column;
@@ -43,7 +43,7 @@ body {
 
 #gameGrid {
     /* display: none(grid); */
-    display: none;
+    display: grid;
     height: 600px;
     width: 900px;
     grid-template-columns: 75px 1fr 1fr 1fr 75px;

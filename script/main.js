@@ -56,7 +56,7 @@ const obstacles = []
 
 mapObstacles.forEach((row, k) => {
     row.forEach((dash, i) => {
-        console.log(dash)
+        // console.log(dash)
         switch(dash) {
             case('-'):
                 obstacles.push((new Obstacle(50 * i,50 * k)))
@@ -65,16 +65,10 @@ mapObstacles.forEach((row, k) => {
         })
 })
 
-
-
-
-
-const wallWall = new Obstacle(0, 0)
-
-const topWall = new wall(0, 0, 750, 50, "grey")
-const bottomWall = new wall(0, 8, 750, 50, "grey")
-const leftWall = new wall(0, 0, 50, 450, "grey")
-const rightWall = new wall(14, 0, 50, 450, "grey")
+// const topWall = new wall(0, 0, 750, 50, "grey")
+// const bottomWall = new wall(0, 8, 750, 50, "grey")
+// const leftWall = new wall(0, 0, 50, 450, "grey")
+// const rightWall = new wall(14, 0, 50, 450, "grey")
 
 // const roadBlock = new Obstacle(4, 4, 100, 100, "black")
 
@@ -147,6 +141,8 @@ class SSB {
     constructor(x, y) {
         this.x = x
         this.y = y
+        this.xspeed = 0
+        this.yspeed = 0
         this.width = 50
         this.height = 50
         this.color = "white"
@@ -157,9 +153,14 @@ class SSB {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
+    update() {
+        this.render()
+        this.x += this.xspeed
+        this.y += this.yspeed
+    }
 }
 
-const cleaner = new SSB(50, 50)
+const cleaner = new SSB(100, 100)
 
 // MOVEMENT TRACKS WHAT KEY HAS BEEN PRESSED
 document.addEventListener('keydown', (e) => {
@@ -208,57 +209,115 @@ const gameLoopInterval = setInterval(gameLoop, 17)
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     allFloor()
-    // allObstacle()
+    cleaner.update()
     obstacles.forEach((obstacle) => {
         obstacle.render()
+        if (cleaner.y <= obstacle.y + obstacle.height && 
+            cleaner.x + cleaner.width >= obstacle.x &&
+            cleaner.y + cleaner.height >= obstacle.y &&
+            cleaner.x <= obstacle.x + obstacle.width) {
+                console.log('colliding')
+                cleaner.xspeed = 0
+                cleaner.yspeed = 0
+                cleaner.isMoving = false
+        }
+        // if (cleaner.isMoving) {
+        //     switch (cleaner.direction) {
+        //         case('up'):
+        //         if (detectObstacle(cleaner, obstacle)) {
+        //             cleaner.isMoving = false
+        //             cleaner.xspeed = 0
+        //         }
+        //         break
+        //         case('left'):
+        //         if (detectObstacle(cleaner, obstacle)) {
+        //             cleaner.isMoving = false
+        //             cleaner.xspeed = 0
+        //         }
+        //         break
+        //         case('down'):
+        //         if (detectObstacle(cleaner, obstacle)) {
+        //             cleaner.isMoving = false
+        //         }
+        //         case('right'):
+        //         if (detectObstacle(cleaner, obstacle)) {
+        //             cleaner.isMoving = false
+        //         }
+        //     }
+
+        // }
     })
-    
-    cleaner.render()
-    // console.log('looprunning')
-    // topWall.render()
-    // bottomWall.render()
-    // leftWall.render()
-    // rightWall.render()
-    // wallWall.render()
+
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {
             case ('up'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, obstacles)) {
-                    cleaner.isMoving = false
-                } else {
-                    cleaner.y -= 10
-                }
+                cleaner.yspeed = -5
                 break
             case ('left'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, obstacles)) {
-                    cleaner.isMoving = false
-                } else {
-                    cleaner.x -= 10
-                }
+                cleaner.xspeed = -5
                 break
             case ('down'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, obstacles)) {
-                    cleaner.isMoving = false
-                } else {
-                    cleaner.y += 10
-                }
+                cleaner.yspeed = 5
                 break
             case ('right'):
                 console.log(cleaner.isMoving)
-                if(detectObstacle(cleaner, obstacles)) {
-                    cleaner.isMoving = false
-                } else {
-                    cleaner.x += 25
-                }
+                cleaner.xspeed = 5
                 break
             }
     }
+    // if (cleaner.isMoving) {
+    //     switch (cleaner.direction) {
+    //         case ('up'):
+    //             console.log(cleaner.isMoving)
+    //             if(detectObstacle(cleaner, obstacles)) {
+    //                 cleaner.isMoving = false
+    //             } else {
+    //                 cleaner.y -= 10
+    //             }
+    //             break
+    //         case ('left'):
+    //             console.log(cleaner.isMoving)
+    //             if(detectObstacle(cleaner, obstacles)) {
+    //                 cleaner.isMoving = false
+    //             } else {
+    //                 cleaner.x -= 10
+    //             }
+    //             break
+    //         case ('down'):
+    //             console.log(cleaner.isMoving)
+    //             if(detectObstacle(cleaner, obstacles)) {
+    //                 cleaner.isMoving = false
+    //             } else {
+    //                 cleaner.y += 10
+    //             }
+    //             break
+    //         case ('right'):
+    //             console.log(cleaner.isMoving)
+    //             if(detectObstacle(cleaner, obstacles)) {
+    //                 cleaner.isMoving = false
+    //             } else {
+    //                 cleaner.x += 10
+    //             }
+    //             break
+    //         }
+    // }
 
 }
+function detection() {
+    if (cleaner.x + cleaner.width >= randomObj.x && 
+        cleaner.x  <= randomObj.x + randomObj.width && 
+        cleaner.y + cleaner.height >= randomObj.y && 
+        cleaner.y <= randomObj.y + randomObj.height) {
+            console.log('colliding')
+            cleaner.xspeed = 0
+            cleaner.yspeed = 0
+    }
+}
+
 
 function detectObstacle(cleaner, randomObj) {
     const left = cleaner.x + cleaner.width >= randomObj.x
@@ -358,7 +417,7 @@ quit.addEventListener('click', displayTitle)
 // Move with WASD keys 
 // -- movement --
 // ONLY MOVE ONE DIRECTION AT A TIME (use is moving variable)
-// can move when you hit a wall -- wall dectection --
+// can move when you hit a wall -- wall detection --
 
 // Stop when SSB hits a wall --
 // collision detect function

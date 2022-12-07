@@ -209,13 +209,13 @@ const gameLoopInterval = setInterval(gameLoop, 17)
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     allFloor()
-    cleaner.update()
+    
     obstacles.forEach((obstacle) => {
         obstacle.render()
-        if (cleaner.y <= obstacle.y + obstacle.height && 
-            cleaner.x + cleaner.width >= obstacle.x &&
-            cleaner.y + cleaner.height >= obstacle.y &&
-            cleaner.x <= obstacle.x + obstacle.width) {
+        if (cleaner.y + cleaner.yspeed <= obstacle.y + obstacle.height && 
+            cleaner.x + cleaner.width + cleaner.xspeed >= obstacle.x &&
+            cleaner.y + cleaner.height + cleaner.yspeed >= obstacle.y &&
+            cleaner.x + cleaner.xspeed <= obstacle.x + obstacle.width) {
                 console.log('colliding')
                 cleaner.xspeed = 0
                 cleaner.yspeed = 0
@@ -247,7 +247,7 @@ function gameLoop() {
 
         // }
     })
-
+    cleaner.update()
     // PLAYER MOVEMENT THAT STOPS WHEN IT DETECTS A COLLISION
     if (cleaner.isMoving) {
         switch (cleaner.direction) {
@@ -307,26 +307,16 @@ function gameLoop() {
     // }
 
 }
-function detection() {
-    if (cleaner.x + cleaner.width >= randomObj.x && 
-        cleaner.x  <= randomObj.x + randomObj.width && 
-        cleaner.y + cleaner.height >= randomObj.y && 
-        cleaner.y <= randomObj.y + randomObj.height) {
-            console.log('colliding')
-            cleaner.xspeed = 0
-            cleaner.yspeed = 0
-    }
-}
 
 
-function detectObstacle(cleaner, randomObj) {
-    const left = cleaner.x + cleaner.width >= randomObj.x
-    const right = cleaner.x  <= randomObj.x + randomObj.width
-    const top = cleaner.y + cleaner.height >= randomObj.y
-    const bottom = cleaner.y <= randomObj.y + randomObj.height
-    // console.log(left, right, top, bottom)
-    return left && right && top && bottom
-}
+// function detectObstacle(cleaner, randomObj) {
+//     const left = cleaner.x + cleaner.width >= randomObj.x
+//     const right = cleaner.x  <= randomObj.x + randomObj.width
+//     const top = cleaner.y + cleaner.height >= randomObj.y
+//     const bottom = cleaner.y <= randomObj.y + randomObj.height
+//     // console.log(left, right, top, bottom)
+//     return left && right && top && bottom
+// }
 
 // PLAY && QUIT BUTTON FUNCTION
 

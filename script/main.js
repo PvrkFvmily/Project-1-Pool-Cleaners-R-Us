@@ -1,4 +1,4 @@
-console.log('linked')
+// console.log('linked')
 const start = document.getElementById('start')
 const quit = document.querySelector('#quit')
 const titleScreen = document.getElementById('titleScreen')
